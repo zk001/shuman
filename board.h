@@ -1,0 +1,21 @@
+#ifndef _BOARD_H_
+#define _BOARD_H_
+
+#define ROW0	GPIO_PD3
+#define ROW1	GPIO_PB7
+#define ROW2	GPIO_PB1
+
+#define COL0	GPIO_PD4
+#define COL1	GPIO_PD7
+#define COL2	GPIO_PA1
+#define COL3	GPIO_PC6
+
+#define DCDC_CE	GPIO_PA0
+
+#define MAX_GPIO_KEYS 11
+#define MAX_KEYS (MAX_GPIO_KEYS)
+
+#define SSD1306_I2C_PORT I2C_GPIO_GROUP_C0C1
+#define SSD1306_I2C_SDA GPIO_PC0
+#define SSD1306_I2C_CLK GPIO_PC1
+#endif
