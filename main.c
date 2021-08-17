@@ -61,7 +61,7 @@ int main(void)
   dc_power_on();
 
   if(!is_wakeup_from_sleep()){
-	gpio_key_alloc(key_arry, MAX_GPIO_KEYS);
+    gpio_key_alloc(key_arry, MAX_GPIO_KEYS);
     register_key(key_enum_arry, MAX_KEYS);
   }
 
@@ -93,16 +93,15 @@ int main(void)
   rf_8359_set_tx();
 
   while(1){
-	if(normal_scan || !is_wakeup_from_sleep()){
+    if(normal_scan || !is_wakeup_from_sleep()){
       poll_key_event();
       ev_process_timer();
-	}
+    }
 
     if(is_wakeup_from_sleep()){
       if(n_clock_time_exceed(display_wait_time, 100000)){//100ms
-    	key_process(NULL);
+        key_process(NULL);
         poll_key_event();
-        clr_wakeup_flag();
         normal_scan = 1;
       }
     }

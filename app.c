@@ -270,8 +270,8 @@ u8 const function_code[MAX_FUNCTION]= {
 };
 
 typedef enum{
-	TINGZHI_TUNXI_ZHUBIAN_MODE = 1,
-	FUXI_MODE,
+  TINGZHI_TUNXI_ZHUBIAN_MODE = 1,
+  FUXI_MODE,
 }now_mode_t;
 
 _attribute_data_retention_ now_mode_t now_current_mode;
@@ -349,29 +349,29 @@ u8 get_user_value(user_value_t* user_value, user_en_t u_val)
 
 void set_default_user_value()
 {
-	user_value_tingzhi_tunxi_zhubian.shuiya    = DEFAULT_SHUIYA;
-	user_value_tingzhi_tunxi_zhubian.penzui    = DEFAULT_PENZUI_WEIZHI;
-	user_value_tingzhi_tunxi_zhubian.fengwen   = DEFAULT_FENGWEN;
-	user_value_tingzhi_tunxi_zhubian.shuiwen   = DEFAULT_SHUIWEN;
-	user_value_tingzhi_tunxi_zhubian.zuowen    = DEFAULT_ZUOWEN;
-	user_value_tingzhi_tunxi_zhubian.guangang  = DEFAULT_GUANGANG;
-	user_value_tingzhi_tunxi_zhubian.zidongfangai    = DEFAULT_ZIDONGFANGGAI;
-	user_value_tingzhi_tunxi_zhubian.shoushikaiguan  = DEFAULT_SHOUSHIKAIGUAN;
-	user_value_tingzhi_tunxi_zhubian.zidongchongshua = DEFAULT_ZIDONGCHONGSHUA;
-	user_value_tingzhi_tunxi_zhubian.shendian  = DEFAULT_SHENDIAN;
-	user_value_tingzhi_tunxi_zhubian.yedeng    = DEFAULT_YEDENG;
+  user_value_tingzhi_tunxi_zhubian.shuiya    = DEFAULT_SHUIYA;
+  user_value_tingzhi_tunxi_zhubian.penzui    = DEFAULT_PENZUI_WEIZHI;
+  user_value_tingzhi_tunxi_zhubian.fengwen   = DEFAULT_FENGWEN;
+  user_value_tingzhi_tunxi_zhubian.shuiwen   = DEFAULT_SHUIWEN;
+  user_value_tingzhi_tunxi_zhubian.zuowen    = DEFAULT_ZUOWEN;
+  user_value_tingzhi_tunxi_zhubian.guangang  = DEFAULT_GUANGANG;
+  user_value_tingzhi_tunxi_zhubian.zidongfangai    = DEFAULT_ZIDONGFANGGAI;
+  user_value_tingzhi_tunxi_zhubian.shoushikaiguan  = DEFAULT_SHOUSHIKAIGUAN;
+  user_value_tingzhi_tunxi_zhubian.zidongchongshua = DEFAULT_ZIDONGCHONGSHUA;
+  user_value_tingzhi_tunxi_zhubian.shendian  = DEFAULT_SHENDIAN;
+  user_value_tingzhi_tunxi_zhubian.yedeng    = DEFAULT_YEDENG;
 
-	user_value_fuxi.shuiya    = DEFAULT_SHUIYA;
-	user_value_fuxi.penzui    = DEFAULT_PENZUI_WEIZHI;
-	user_value_fuxi.fengwen   = DEFAULT_FENGWEN;
-	user_value_fuxi.shuiwen   = DEFAULT_SHUIWEN;
-	user_value_fuxi.zuowen    = DEFAULT_ZUOWEN;
-	user_value_fuxi.guangang  = DEFAULT_GUANGANG;
-	user_value_fuxi.zidongfangai    = DEFAULT_ZIDONGFANGGAI;
-	user_value_fuxi.shoushikaiguan  = DEFAULT_SHOUSHIKAIGUAN;
-	user_value_fuxi.zidongchongshua = DEFAULT_ZIDONGCHONGSHUA;
-	user_value_fuxi.shendian  = DEFAULT_SHENDIAN;
-	user_value_fuxi.yedeng    = DEFAULT_YEDENG;
+  user_value_fuxi.shuiya    = DEFAULT_SHUIYA;
+  user_value_fuxi.penzui    = DEFAULT_PENZUI_WEIZHI;
+  user_value_fuxi.fengwen   = DEFAULT_FENGWEN;
+  user_value_fuxi.shuiwen   = DEFAULT_SHUIWEN;
+  user_value_fuxi.zuowen    = DEFAULT_ZUOWEN;
+  user_value_fuxi.guangang  = DEFAULT_GUANGANG;
+  user_value_fuxi.zidongfangai    = DEFAULT_ZIDONGFANGGAI;
+  user_value_fuxi.shoushikaiguan  = DEFAULT_SHOUSHIKAIGUAN;
+  user_value_fuxi.zidongchongshua = DEFAULT_ZIDONGCHONGSHUA;
+  user_value_fuxi.shendian  = DEFAULT_SHENDIAN;
+  user_value_fuxi.yedeng    = DEFAULT_YEDENG;
 }
 
 void fix_pack_with_user_value(rf_package_t *rf_pack, function_t fn)
@@ -519,18 +519,18 @@ void display_all(bool is_cur_clr, bool is_next_clr)
 
   level1 = current_mode_tingzhi_tunxi_zhubian->level;
   if(current_mode_tingzhi_tunxi_zhubian->mode == NUANFENG_WENDU){
-	if(current_mode_tingzhi_tunxi_zhubian->level == 2){
-		current_mode_tingzhi_tunxi_zhubian->level = 3;
-	}else if(current_mode_tingzhi_tunxi_zhubian->level == 3)
-		current_mode_tingzhi_tunxi_zhubian->level = 5;
+    if(current_mode_tingzhi_tunxi_zhubian->level == 2){
+      current_mode_tingzhi_tunxi_zhubian->level = 3;
+    }else if(current_mode_tingzhi_tunxi_zhubian->level == 3)
+      current_mode_tingzhi_tunxi_zhubian->level = 5;
   }
 
   level2 = next_mode_tingzhi_tunxi_zhubian->level;
   if(next_mode_tingzhi_tunxi_zhubian->mode == NUANFENG_WENDU){
-	if(next_mode_tingzhi_tunxi_zhubian->level == 2){
-		next_mode_tingzhi_tunxi_zhubian->level = 3;
-	}else if(next_mode_tingzhi_tunxi_zhubian->level == 3)
-		next_mode_tingzhi_tunxi_zhubian->level = 5;
+    if(next_mode_tingzhi_tunxi_zhubian->level == 2){
+      next_mode_tingzhi_tunxi_zhubian->level = 3;
+    }else if(next_mode_tingzhi_tunxi_zhubian->level == 3)
+      next_mode_tingzhi_tunxi_zhubian->level = 5;
   }
 
   u32 level3;
@@ -538,18 +538,18 @@ void display_all(bool is_cur_clr, bool is_next_clr)
 
   level3 = current_mode_fuxi->level;
   if(current_mode_fuxi->mode == NUANFENG_WENDU){
-	if(current_mode_fuxi->level == 2){
-		current_mode_fuxi->level = 3;
-	}else if(current_mode_fuxi->level == 3)
-		current_mode_fuxi->level = 5;
+    if(current_mode_fuxi->level == 2){
+      current_mode_fuxi->level = 3;
+    }else if(current_mode_fuxi->level == 3)
+      current_mode_fuxi->level = 5;
   }
 
   level4 = next_mode_fuxi->level;
   if(next_mode_fuxi->mode == NUANFENG_WENDU){
-	if(next_mode_fuxi->level == 2){
-		next_mode_fuxi->level = 3;
-	}else if(next_mode_fuxi->level == 3)
-		next_mode_fuxi->level = 5;
+    if(next_mode_fuxi->level == 2){
+      next_mode_fuxi->level = 3;
+    }else if(next_mode_fuxi->level == 3)
+      next_mode_fuxi->level = 5;
   }
 
   display_t first_display  = {current_mode, 1, 1, FIRST_PAGE};
@@ -569,22 +569,22 @@ void display_all(bool is_cur_clr, bool is_next_clr)
 void is_clear(bool *cur, bool *next)
 {
   if(current_mode->mode == PENZUI_WEIZHI &&\
-	  (current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
-	  *cur = 1;
+      (current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
+    *cur = 1;
   }
 
   if(current_mode->mode == WENSHUI_YALI &&\
-	(current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
-	  *cur = 1;
+      (current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
+    *cur = 1;
   }
 
   if(next_mode->mode == PENZUI_WEIZHI &&\
-	(current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
-	  *next = 1;
+      (current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
+    *next = 1;
   }
   if(next_mode->mode == WENSHUI_YALI &&\
-	(current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
-	  *next = 1;
+      (current_mode_tingzhi_tunxi_zhubian->level != current_mode_fuxi->level)){
+    *next = 1;
   }
 }
 
@@ -730,11 +730,11 @@ void long_key_dachong_zidongchongshua_kai()
   rf_package_t rf_pack;
 
   if(!chongshua_val){//open
-	  chongshua_val = 1;
+    chongshua_val = 1;
 
-	  set_user_value(p_cur_user_value, ZIDONGCHONGSHUA_INDEX, chongshua_val);
-	  fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-	  send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
+    set_user_value(p_cur_user_value, ZIDONGCHONGSHUA_INDEX, chongshua_val);
+    fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+    send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
   }
 }
 
@@ -743,11 +743,11 @@ void long_key_dachong_zidongchongshua_guan()
   rf_package_t rf_pack;
 
   if(chongshua_val){//open
-	  chongshua_val = 0;
+    chongshua_val = 0;
 
-	set_user_value(p_cur_user_value, ZIDONGCHONGSHUA_INDEX, chongshua_val);
-	fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-	send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
+    set_user_value(p_cur_user_value, ZIDONGCHONGSHUA_INDEX, chongshua_val);
+    fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+    send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
   }
 }
 
@@ -767,10 +767,10 @@ void long_key_fangai_zhinengjiedian_kai()
   rf_package_t rf_pack;
 
   if(!zhinengjiedian_val){//open
-	  zhinengjiedian_val = 1;
-	set_user_value(p_cur_user_value, SHENDIAN_INDEX, zhinengjiedian_val);
-	fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-	send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
+    zhinengjiedian_val = 1;
+    set_user_value(p_cur_user_value, SHENDIAN_INDEX, zhinengjiedian_val);
+    fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+    send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
   }
 }
 
@@ -779,10 +779,10 @@ void long_key_fangai_zhinengjiedian_guan()
   rf_package_t rf_pack;
 
   if(zhinengjiedian_val){//open
-	  zhinengjiedian_val = 0;
-	set_user_value(p_cur_user_value, SHENDIAN_INDEX, zhinengjiedian_val);
-	fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-	send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
+    zhinengjiedian_val = 0;
+    set_user_value(p_cur_user_value, SHENDIAN_INDEX, zhinengjiedian_val);
+    fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+    send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
   }
 }
 
@@ -822,74 +822,44 @@ void short_key_fangai()
 
 void short_key_set()
 {
-//  jiumu_mode_t *ptr;
-//  jiumu_mode_t *other_ptr;
-//  jiumu_mode_t *other_next_ptr;
-//
-//  jiumu_mode_t **ptr1;
-//  jiumu_mode_t **ptr2;
-//  jiumu_mode_t **ptr3;
-//  jiumu_mode_t **ptr4;
-
-
-//  ptr = &set_mode[0];
-
-//  if(current_mode == (ptr + 5)){
-//    current_mode = ptr;
-//    *ptr1 = ptr;
-//  }
-//  else{
-//    current_mode += 1;
-//    *ptr1 = current_mode;
-//  }
-//
-//
-//  if(next_mode == (ptr + 5)){
-//    next_mode = ptr;
-//    *ptr2 = ptr;
-//  }
-//  else{
-//    next_mode += 1;
-//    *ptr2 = next_mode;
-//  }
-
   if(!is_wakeup_from_sleep()){
-  if(current_mode_tingzhi_tunxi_zhubian == &set_mode[5]){
-	  current_mode_tingzhi_tunxi_zhubian = &set_mode[0];
-  }else{
-	  current_mode_tingzhi_tunxi_zhubian++;
-  }
+    if(current_mode_tingzhi_tunxi_zhubian == &set_mode[5]){
+      current_mode_tingzhi_tunxi_zhubian = &set_mode[0];
+    }else{
+      current_mode_tingzhi_tunxi_zhubian++;
+    }
 
-  if(next_mode_tingzhi_tunxi_zhubian == &set_mode[5]){
-	  next_mode_tingzhi_tunxi_zhubian = &set_mode[0];
-  }else{
-	  next_mode_tingzhi_tunxi_zhubian++;
-  }
+    if(next_mode_tingzhi_tunxi_zhubian == &set_mode[5]){
+      next_mode_tingzhi_tunxi_zhubian = &set_mode[0];
+    }else{
+      next_mode_tingzhi_tunxi_zhubian++;
+    }
 
-  if(current_mode_fuxi == &set_mode_fuxi[5]){
-	  current_mode_fuxi = &set_mode_fuxi[0];
-  }else{
-	  current_mode_fuxi++;
-  }
+    if(current_mode_fuxi == &set_mode_fuxi[5]){
+      current_mode_fuxi = &set_mode_fuxi[0];
+    }else{
+      current_mode_fuxi++;
+    }
 
-  if(next_mode_fuxi == &set_mode_fuxi[5]){
-	  next_mode_fuxi = &set_mode_fuxi[0];
-  }else{
-	  next_mode_fuxi++;
-  }
+    if(next_mode_fuxi == &set_mode_fuxi[5]){
+      next_mode_fuxi = &set_mode_fuxi[0];
+    }else{
+      next_mode_fuxi++;
+    }
 
-  if(now_current_mode == TINGZHI_TUNXI_ZHUBIAN_MODE){
-	  current_mode  = current_mode_tingzhi_tunxi_zhubian;
-	  next_mode     = next_mode_tingzhi_tunxi_zhubian;
-  }else{
-	  current_mode = current_mode_fuxi;
-	  next_mode = next_mode_fuxi;
-  }
-  }
+    if(now_current_mode == TINGZHI_TUNXI_ZHUBIAN_MODE){
+      current_mode  = current_mode_tingzhi_tunxi_zhubian;
+      next_mode     = next_mode_tingzhi_tunxi_zhubian;
+    }else{
+      current_mode = current_mode_fuxi;
+      next_mode = next_mode_fuxi;
+    }
+  }else
+    clr_wakeup_flag();
 
   if(!is_led_on){
     is_led_on = 1;
-	display_kuang();
+    display_kuang();
   }
   display_all(1, 1);
 }
@@ -1019,8 +989,8 @@ int display(display_t *ptr_mode)
   display_graphic_16x16_2(1, page, fourth_pos, (u8*)fourth);
 
   if(is_clear){//clear adjust area
-	clear_level_indi(page, rever_next_pos(fourth_pos));//clear level
-	display_graphic_16x16_2(1, page, KAI_GUAN_POS(rever_next_pos(fourth_pos)), (u8*)clear_kai_guan);//clear kai or guan
+    clear_level_indi(page, rever_next_pos(fourth_pos));//clear level
+    display_graphic_16x16_2(1, page, KAI_GUAN_POS(rever_next_pos(fourth_pos)), (u8*)clear_kai_guan);//clear kai or guan
   }
 
   if(!current_disply->level){
@@ -1051,115 +1021,79 @@ void short_key_plus()
   rf_package_t rf_pack;
   if(!is_wakeup_from_sleep()){
 
-  if((current_mode->mode != WENSHUI_YALI) && (current_mode->mode != PENZUI_WEIZHI)){
-	  if(current_mode_tingzhi_tunxi_zhubian->level == current_mode_tingzhi_tunxi_zhubian->max_level)
-		  current_mode_tingzhi_tunxi_zhubian->count_mode = DOWN;
-	  else if(current_mode_tingzhi_tunxi_zhubian->level == current_mode_tingzhi_tunxi_zhubian->min_level)
-		  current_mode_tingzhi_tunxi_zhubian->count_mode = UP;
+    if((current_mode->mode != WENSHUI_YALI) && (current_mode->mode != PENZUI_WEIZHI)){
+      if(current_mode_tingzhi_tunxi_zhubian->level == current_mode_tingzhi_tunxi_zhubian->max_level)
+        current_mode_tingzhi_tunxi_zhubian->count_mode = DOWN;
+      else if(current_mode_tingzhi_tunxi_zhubian->level == current_mode_tingzhi_tunxi_zhubian->min_level)
+        current_mode_tingzhi_tunxi_zhubian->count_mode = UP;
 
-	  if(current_mode_tingzhi_tunxi_zhubian->count_mode == UP)
-		  current_mode_tingzhi_tunxi_zhubian->level++;
-	  else
-		  current_mode_tingzhi_tunxi_zhubian->level--;
+      if(current_mode_tingzhi_tunxi_zhubian->count_mode == UP)
+        current_mode_tingzhi_tunxi_zhubian->level++;
+      else
+        current_mode_tingzhi_tunxi_zhubian->level--;
 
-	  if(current_mode_fuxi->level == current_mode_fuxi->max_level)
-		  current_mode_fuxi->count_mode = DOWN;
-	  else if(current_mode_fuxi->level == current_mode_fuxi->min_level)
-		  current_mode_fuxi->count_mode = UP;
+      if(current_mode_fuxi->level == current_mode_fuxi->max_level)
+        current_mode_fuxi->count_mode = DOWN;
+      else if(current_mode_fuxi->level == current_mode_fuxi->min_level)
+        current_mode_fuxi->count_mode = UP;
 
-	  if(current_mode_fuxi->count_mode == UP)
-		  current_mode_fuxi->level++;
-	  else
-		  current_mode_fuxi->level--;
-  }else{
-	  if(current_mode->level == current_mode->max_level)
-		current_mode->count_mode = DOWN;
-	  else if(current_mode->level == current_mode->min_level)
-		current_mode->count_mode = UP;
+      if(current_mode_fuxi->count_mode == UP)
+        current_mode_fuxi->level++;
+      else
+        current_mode_fuxi->level--;
+    }else{
+      if(current_mode->level == current_mode->max_level)
+        current_mode->count_mode = DOWN;
+      else if(current_mode->level == current_mode->min_level)
+        current_mode->count_mode = UP;
 
-	  if(current_mode->count_mode == UP)
-		current_mode->level++;
-	  else
-		current_mode->level--;
-  }
+      if(current_mode->count_mode == UP)
+        current_mode->level++;
+      else
+        current_mode->level--;
+    }
 
-  switch(current_mode->mode){
-    case WENSHUI_WENDU:
+    switch(current_mode->mode){
+      case WENSHUI_WENDU:
         set_user_value(&user_value_tingzhi_tunxi_zhubian, SHUIWEN_INDEX, current_mode_tingzhi_tunxi_zhubian->level);
         set_user_value(&user_value_fuxi, SHUIWEN_INDEX, current_mode_fuxi->level);
-//      set_user_value(p_cur_user_value, SHUIWEN_INDEX, current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-      break;
-    case WENSHUI_YALI://0x18
-      set_user_value(p_cur_user_value, SHUIYA_INDEX,  current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CHONGXITIAOJIE);
-      break;
-    case ZUOQUAN_WENDU:
+        fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+        break;
+      case WENSHUI_YALI://0x18
+        set_user_value(p_cur_user_value, SHUIYA_INDEX,  current_mode->level);
+        fix_pack_with_user_value(&rf_pack, CHONGXITIAOJIE);
+        break;
+      case ZUOQUAN_WENDU:
         set_user_value(&user_value_tingzhi_tunxi_zhubian, ZUOWEN_INDEX,  current_mode_tingzhi_tunxi_zhubian->level);
         set_user_value(&user_value_fuxi, ZUOWEN_INDEX,  current_mode_fuxi->level);
-
-//      set_user_value(p_cur_user_value, ZUOWEN_INDEX,  current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-      break;
-    case NUANFENG_WENDU:
+        fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+        break;
+      case NUANFENG_WENDU:
         set_user_value(&user_value_tingzhi_tunxi_zhubian, FENGWEN_INDEX, current_mode_tingzhi_tunxi_zhubian->level);
         set_user_value(&user_value_fuxi, FENGWEN_INDEX, current_mode_fuxi->level);
-
-//      set_user_value(p_cur_user_value, FENGWEN_INDEX, current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-      break;
-    case PENZUI_WEIZHI://0x18
-      set_user_value(p_cur_user_value, PENZUI_INDEX,  current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CHONGXITIAOJIE);
-      break;
-    case YEDENG_KAIGUAN:
+        fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+        break;
+      case PENZUI_WEIZHI://0x18
+        set_user_value(p_cur_user_value, PENZUI_INDEX,  current_mode->level);
+        fix_pack_with_user_value(&rf_pack, CHONGXITIAOJIE);
+        break;
+      case YEDENG_KAIGUAN:
         set_user_value(&user_value_tingzhi_tunxi_zhubian, YEDENG_INDEX,  current_mode_tingzhi_tunxi_zhubian->level);
         set_user_value(&user_value_fuxi, YEDENG_INDEX,  current_mode_fuxi->level);
+        fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
+        break;
+      default:break;
+    }
+    send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
+  }else
+    clr_wakeup_flag();
 
-//      set_user_value(p_cur_user_value, YEDENG_INDEX,  current_mode->level);
-      fix_pack_with_user_value(&rf_pack, CANSHUTIAOJIE);
-      break;
-    default:break;
-  }
-
-  send_rf_data_kemu(&rf_pack, sizeof(rf_pack));
-
-//  u32 level;
-//  level = current_mode->level;
-//  if(current_mode->mode == NUANFENG_WENDU){
-//    if(current_mode->level == 2){
-//      current_mode->level = 3;
-//    }else if(current_mode->level == 3)
-//      current_mode->level = 5;
-//  }
-
-//  u32 level1;
-//  u32 level2;
-//  level1 = current_mode_tingzhi_tunxi_zhubian->level;
-//  if(current_mode_tingzhi_tunxi_zhubian->mode == NUANFENG_WENDU){
-//    if(current_mode_tingzhi_tunxi_zhubian->level == 2){
-//    	current_mode_tingzhi_tunxi_zhubian->level = 3;
-//    }else if(current_mode_tingzhi_tunxi_zhubian->level == 3)
-//    	current_mode_tingzhi_tunxi_zhubian->level = 5;
-//  }
-//
-//  level2 = current_mode_fuxi->level;
-//  if(current_mode_fuxi->mode == NUANFENG_WENDU){
-//    if(current_mode_fuxi->level == 2){
-//    	current_mode_fuxi->level = 3;
-//    }else if(current_mode_fuxi->level == 3)
-//    	current_mode_fuxi->level = 5;
-//  }
-  }
   if(!is_led_on){
     display_kuang();
     is_led_on = 1;
   }
+
   display_all(1, 0);
-
-//  current_mode_tingzhi_tunxi_zhubian->level = level1;
-//  current_mode_fuxi->level = level2;
-
 }
 
 void peidui(rf_package_t *rf_pack)
@@ -1206,26 +1140,26 @@ void long_key_tingzhi_peidui()//3s
   flash_period = clock_time();
 
   while(1){
-	if(n_clock_time_exceed(start_time, 30000000)){//30s
-	  rf_8359_set_tx();
+    if(n_clock_time_exceed(start_time, 30000000)){//30s
+      rf_8359_set_tx();
       display_kuang();
       display_all(0, 0);
-	  clr_app_read_key_flag();
-	  reload_sys_time();
-	  return;
-	}
+      clr_app_read_key_flag();
+      reload_sys_time();
+      return;
+    }
 
-	if(n_clock_time_exceed(flash_period, 500000)){//500ms
+    if(n_clock_time_exceed(flash_period, 500000)){//500ms
       flash_period = clock_time();
 
-	  toggle ^= 1;
+      toggle ^= 1;
 
-	  if(toggle){
-	    display_kuang();
-	    display_all(0, 0);
-	  }else
-	    clear_screen();
-	}
+      if(toggle){
+        display_kuang();
+        display_all(0, 0);
+      }else
+        clear_screen();
+    }
 
     if(n_clock_time_exceed(send_period, 1000000)){//1S
       decrease_rf_power_tx();
@@ -1298,23 +1232,12 @@ void app_init()
   if(!is_wakeup_from_sleep()){
     set_default_user_value();
     read_id(&uid, 4);
-//    now_current_mode = TINGZHI_TUNXI_ZHUBIAN_MODE;
-//    p_cur_user_value = &user_value_tingzhi_tunxi_zhubian;
-//    current_mode = current_mode_tingzhi_tunxi_zhubian;
-//    next_mode = next_mode_tingzhi_tunxi_zhubian;
-//	display_kuang();
-//	display_all(0, 0);
   }
 
   now_current_mode = TINGZHI_TUNXI_ZHUBIAN_MODE;
   p_cur_user_value = &user_value_tingzhi_tunxi_zhubian;
   current_mode = current_mode_tingzhi_tunxi_zhubian;
   next_mode = next_mode_tingzhi_tunxi_zhubian;
-
-//  if(cur_key == KEY_SET || cur_key == KEY_PLUS){
-//    display_kuang();
-//    display_all(0, 0);
-//  }
 
   register_key_event(KEY_TINGZHI,  0, MS2TICK(2000), 0, SHORT_KEY, short_key_tingzhi);
   register_key_event(KEY_TUNXI,    0, MS2TICK(2000), 0, SHORT_KEY, short_key_tunxi);
