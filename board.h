@@ -11,6 +11,7 @@
 #define COL3	GPIO_PC6
 
 #define DCDC_CE	GPIO_PA0
+#define DC_ENABLE_LEVEL 0
 
 #define MAX_GPIO_KEYS 11
 #define MAX_KEYS (MAX_GPIO_KEYS)

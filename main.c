@@ -9,12 +9,15 @@
 #include "n_timer.h"
 #include "board.h"
 #include "mac_id.h"
-#include "gpio_key.h"
+#include "matrix_gpio_key.h"
 #include "gpio_led.h"
 #include "power_saving.h"
 #include "ssd1306_oled.h"
 #include "wakeup.h"
 #include "i2c_gpio_set.h"
+#include "prevent_system_crash.h"
+#include "display.h"
+#include "my_display.h"
 
 static u32 display_wait_time;
 MEMPOOL_DECLARE(KEY_EVENT_POOL, KEY_EVENT_POOL_MEM, sizeof(mem_block_t) + sizeof(event_handler_t), MAX_EVENT);
@@ -33,86 +36,92 @@ _attribute_data_retention_ key_map_t key_arry[MAX_GPIO_KEYS] = {
 };
 
 const key_type_t key_enum_arry[MAX_KEYS] = {
-  {KEY0,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY1,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY2,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY3,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY4,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY5,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY6,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY7,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY8,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY9,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
-  {KEY10, MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_stuck_key_low_scan},
+  {KEY0,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY1,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY2,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY3,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY4,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY5,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY6,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY7,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY8,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY9,  MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
+  {KEY10, MECHANICAL_KEY, gpio_key_init, gpio_key_low_scan, gpio_key_enable_sleep, gpio_key_disable_sleep},
 };
 
 static bool normal_scan;
+u8 key_event_occured;
+extern void long_dachong_display_kai ();
 
 int main(void)
 {
-  blc_pm_select_internal_32k_crystal();
+start:
+  blc_pm_select_internal_32k_crystal ();
 
-  cpu_wakeup_init();
+  cpu_wakeup_init ();
 
-  clock_init(SYS_CLK_24M_Crystal);
+  clock_init (SYS_CLK_24M_Crystal);
 
-  gpio_init(1);
+  gpio_init (1);
 
-  dc_power_on();
+  prevent_system_crash ();
 
-  if(!is_wakeup_from_sleep()){
-    gpio_key_alloc(key_arry, MAX_GPIO_KEYS);
-    register_key(key_enum_arry, MAX_KEYS);
+  dc_power_on ();
+
+  if (!is_wakeup_from_sleep()) {
+    gpio_key_alloc (key_arry, MAX_GPIO_KEYS);
+    register_key (key_enum_arry, MAX_KEYS);
   }
 
-  if(!is_wakeup_from_sleep())
-    key_init();
+  if (!is_wakeup_from_sleep ())
+    key_init ();
   else
-    key_wakeup_init();
+    key_wakeup_init ();
 
-  key_process(NULL);//for wake up fast scan
+  key_process (NULL);//for wake up fast scan
 
-  initial_lcd();
+  initial_lcd  ();
 
-  if(!is_wakeup_from_sleep())
-    id_init();
+  if (!is_wakeup_from_sleep())
+    id_init ();
 
-  mempool_init(&KEY_EVENT_POOL ,&KEY_EVENT_POOL_MEM[0], sizeof(mem_block_t) + sizeof(event_handler_t), MAX_EVENT);
+  if (!is_wakeup_from_sleep()) {
+    mempool_init(&KEY_EVENT_POOL, &KEY_EVENT_POOL_MEM[0], sizeof(mem_block_t) + sizeof(event_handler_t), MAX_EVENT);
+    app_init();
+  }
 
-  app_init();
+  idle_time_for_sleep (SLEEP_WAIT_TIME);
 
-  ev_on_timer(key_process, NULL, KEY_PROCESS_TIME);
+  reload_sys_time ();
 
-  if(!is_wakeup_from_sleep())
-    idle_time_for_sleep(SLEEP_WAIT_TIME);
+  display_wait_time = clock_time ();
 
-  reload_sys_time();
+  rf_8359_set_tx ();
 
-  display_wait_time = clock_time();
+  while (1) {
 
-  rf_8359_set_tx();
-
-  while(1){
-    if(normal_scan || !is_wakeup_from_sleep()){
-      poll_key_event();
-      ev_process_timer();
+    if (normal_scan || !is_wakeup_from_sleep ()) {
+      poll_key_event ();
+      key_event_occured = key_process (NULL);
     }
 
-    if(is_wakeup_from_sleep()){
-      if(n_clock_time_exceed(display_wait_time, 100000)){//100ms
-        key_process(NULL);
-        poll_key_event();
+    if (is_wakeup_from_sleep()) {
+      if (n_clock_time_exceed (display_wait_time, 100000)) {//100ms
+    	key_event_occured = key_process (NULL);
+    	poll_key_event ();
+        clr_wakeup_flag ();
         normal_scan = 1;
       }
     }
 
-    if(poll_idle_time()){
-      gpio_key_sleep_setup();
-      clear_screen();
-      i2c_gpio_set_deepsleep(SSD1306_I2C_SDA, SSD1306_I2C_CLK);
-      set_wakeup_flag();
-      dc_shutdown();
-      cpu_sleep_wakeup(DEEPSLEEP_MODE_RET_SRAM_LOW32K, PM_WAKEUP_PAD, 0);
+    if ((!is_led_on || poll_idle_time()) && !key_event_occured && !is_wakeup_from_sleep()) {
+      gpio_key_sleep_setup ();
+      clear_screen ();
+      i2c_gpio_set_deepsleep (SSD1306_I2C_SDA, SSD1306_I2C_CLK);
+      set_wakeup_flag ();
+      dc_shutdown ();
+      cpu_sleep_wakeup (DEEPSLEEP_MODE_RET_SRAM_LOW32K, PM_WAKEUP_PAD, 0);
+      goto start;
     }
   }
 }
