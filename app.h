@@ -1,6 +1,9 @@
 #ifndef __APP_H__
 #define __APP_H__
 
+#include "common.h"
+#include "key.h"
+
 #define KEY_TINGZHI   KEY10
 #define KEY_TUNXI     KEY6
 #define KEY_ZHUBIAN   KEY7
@@ -33,24 +36,14 @@
 #define SLEEP_WAIT_TIME 5000 //MS
 
 #define PAIR_KEY_VALUE	0x55
-#define MAX_EVENT 20//the number is the register_key_event call times
+#define MAX_EVENT 22//the number is the register_key_event call times
 
 extern u8 user_id;
 extern u32 uid;
 extern u32 new_id;
 
-extern u8 shuiwen;
-extern u8 zidongfangai;
-extern u8 shoushikaiguan;
-extern u8 zidongchongshua;
-extern u8 guangang;
-extern u8 shendian;
 extern u8 penzuiweizhi;
-extern u8 zuowen;
-extern u8 yedeng;
 extern u8 shuiya;
-extern u8 fengwen;
-extern u8 jiaogankaiguan;
 
 extern void app_init();
 extern void update_app_gear ();

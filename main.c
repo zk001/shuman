@@ -1,22 +1,20 @@
-#include "../../drivers.h"
-#include "../../genfsk_ll/genfsk_ll.h"
 #include "../../common/mempool.h"
-#include "key.h"
-#include "rf.h"
-#include "app.h"
-#include "led.h"
+
+//general
 #include "dc.h"
 #include "n_timer.h"
-#include "board.h"
 #include "mac_id.h"
 #include "matrix_gpio_key.h"
-#include "gpio_led.h"
 #include "power_saving.h"
 #include "ssd1306_oled.h"
 #include "wakeup.h"
 #include "i2c_gpio_set.h"
 #include "prevent_system_crash.h"
-#include "display.h"
+#include "rf.h"
+
+//vendor
+#include "app.h"
+#include "board.h"
 #include "my_display.h"
 
 static u32 display_wait_time;
@@ -51,7 +49,6 @@ const key_type_t key_enum_arry[MAX_KEYS] = {
 
 static bool normal_scan;
 u8 key_event_occured;
-extern void long_dachong_display_kai ();
 
 int main(void)
 {
@@ -114,7 +111,10 @@ start:
       }
     }
 
-    if ((!is_led_on || poll_idle_time()) && !key_event_occured && !is_wakeup_from_sleep()) {
+    poll_key_event ();
+    key_process (NULL);
+
+    if (poll_idle_time()) {
       gpio_key_sleep_setup ();
       clear_screen ();
       i2c_gpio_set_deepsleep (SSD1306_I2C_SDA, SSD1306_I2C_CLK);

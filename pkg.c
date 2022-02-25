@@ -1,9 +1,12 @@
-#include "../../drivers.h"
 #include "common.h"
 #include "pkg.h"
+
+//general
 #include "gear.h"
-#include "app.h"
 #include "mac_id.h"
+
+//vendor
+#include "app.h"
 
 #define SHUIWEN_POSITION_BYTE2_BIT4(x)        (x << 4)
 #define ZIDONGFANGAI_POSITION_BYTE2_BIT3(x)   (x << 3)
@@ -70,19 +73,19 @@ void fix_pack_with_user_value (rf_package_t *rf_pack, function_t fn)
   rf_pack->start_code    = 0x4c;
 
   rf_pack->byte1         = function_code[fun];
-  rf_pack->byte2         = SHUIWEN_POSITION_BYTE2_BIT4(shuiwen) |\
-                           ZIDONGFANGAI_POSITION_BYTE2_BIT3(zidongfangai) |\
-                           SHOUSHIKAIGUAN_POSITION_BYTE2_BIT2(shoushikaiguan) |\
-                           ZIDONGCHONGSHUA_POSITION_BYTE2_BIT1(zidongchongshua) |\
-                           GUANGANG_POSITION_BYTE2_BIT1(guangang);
+  rf_pack->byte2         = SHUIWEN_POSITION_BYTE2_BIT4(get_gear (0, "shuiwen")) |\
+                           ZIDONGFANGAI_POSITION_BYTE2_BIT3(get_gear (0, "zidongfangai")) |\
+                           SHOUSHIKAIGUAN_POSITION_BYTE2_BIT2(get_gear (0, "shoushikaiguan")) |\
+                           ZIDONGCHONGSHUA_POSITION_BYTE2_BIT1(get_gear (0, "zidongchongshua")) |\
+                           GUANGANG_POSITION_BYTE2_BIT1(get_gear (0, "guangang"));
 
-  rf_pack->byte3         = SHENDIANMOSHI_POSITION_BYTE3_BIT7(shendian) |\
+  rf_pack->byte3         = SHENDIANMOSHI_POSITION_BYTE3_BIT7(get_gear (0, "shendian")) |\
                            PENZUIWEIZHI_POSITION_BYTE3_BIT4(penzuiweizhi) |\
-                           ZUOWEN_POSITION_BYTE3_BIT0(zuowen);
+                           ZUOWEN_POSITION_BYTE3_BIT0(get_gear (0, "zuowen"));
 
-  rf_pack->byte4 = YEDENG_POSITION_BYTE4_BIT7(yedeng) |\
+  rf_pack->byte4 = YEDENG_POSITION_BYTE4_BIT7(get_gear (0, "yedeng")) |\
                    SHUIYA_POSITION_BYTE4_BIT4(shuiya) |\
-                   FENGWEN_POSITION_BYTE4_BIT0(fengwen);
+                   FENGWEN_POSITION_BYTE4_BIT0(get_gear (0, "fengwen"));
 
 
   rf_pack->byte5 = rf_pack->byte1+\
@@ -110,9 +113,9 @@ void fix_xuexi_pack_with_user_value (rf_package_t *rf_pack, u8 byte2, u8 byte3)
 
   rf_pack->byte3         = byte3;
 
-  rf_pack->byte4 = YEDENG_POSITION_BYTE4_BIT7(yedeng) |\
+  rf_pack->byte4 = YEDENG_POSITION_BYTE4_BIT7(get_gear (0, "yedeng")) |\
                    SHUIYA_POSITION_BYTE4_BIT4(shuiya) |\
-                   FENGWEN_POSITION_BYTE4_BIT0(fengwen);
+                   FENGWEN_POSITION_BYTE4_BIT0(get_gear (0, "fengwen"));
 
   rf_pack->byte5 = rf_pack->byte1+\
                    rf_pack->byte2+\

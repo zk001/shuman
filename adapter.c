@@ -1,7 +1,5 @@
 #include "common.h"
 #include "adapter.h"
-#include "gear.h"
-#include "display.h"
 #include "font.h"
 
 #define MAX_INDEX 7

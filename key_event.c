@@ -1,18 +1,19 @@
 #include "common.h"
 #include "key_event.h"
-#include "display.h"
-#include "my_display.h"
-#include "app.h"
-#include "gear.h"
-#include "rf.h"
-#include "pkg.h"
-#include "app.h"
-#include "key.h"
+
+//general
 #include "n_timer.h"
 #include "ssd1306_oled.h"
 #include "mac_id.h"
 #include "power_saving.h"
+#include "gear.h"
+#include "rf.h"
+
+//vendor
+#include "my_display.h"
 #include "adapter.h"
+#include "pkg.h"
+#include "app.h"
 
 //short key tingzhi tunxi dachong xiaochong fanquan fangai
 //long key  tingzhi tunxi dachong xiaochong fanquan fangai
@@ -43,14 +44,6 @@ typedef enum {
 static fun_name_t fun_name;
 bool is_processed_key_dachong_zidongchongshua_one_period;
 bool is_processed_key_fangai_zhinengjiedian_one_period;
-
-static bool is_same_key (u8 key)
-{
-  if ((pre_key == KEY_SET || pre_key == KEY_PLUS) && (key == KEY_SET || key == KEY_PLUS))
-    return true;
-
-  return false;
-}
 
 void long_key_tingzhi_peidui ()
 {
@@ -264,14 +257,14 @@ void short_key_immediately_plus ()
 
   fun_name = name_short_key_immediately_plus;
 
-  if (is_same_key (KEY_PLUS)) {
+  if (get_led_on_type () == TWO_ITEM_ON) {
     if (strcmp ("penzuiqianyi", get_first_display ()) == 0) {
       if (penzuiweizhi == 5) {
         penzuiweizhi = 6;
 
         fix_pack_with_user_value (&rf_pack, CHONGXITIAOJIE);
         send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
-        penzuiweizhi = get_gear (user_id, "penzuiweizhi");
+        penzuiweizhi = 5;
       } else {
     	update_gear (user_id, "penzuiweizhi", GEAR_UP);
     	penzuiweizhi = get_gear (user_id, "penzuiweizhi");
@@ -285,7 +278,7 @@ void short_key_immediately_plus ()
 
         fix_pack_with_user_value (&rf_pack, CHONGXITIAOJIE);
         send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
-    	penzuiweizhi = get_gear (user_id, "penzuiweizhi");
+    	penzuiweizhi = 1;
       } else {
         update_gear (user_id, "penzuiweizhi", GEAR_DOWN);
     	penzuiweizhi = get_gear (user_id, "penzuiweizhi");
@@ -301,8 +294,6 @@ void short_key_immediately_plus ()
       send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
     } else {
       update_gear (0, get_first_display (), GEAR_NONE);
-      update_gear (1, get_first_display (), GEAR_NONE);
-      update_app_gear ();
 
       fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
       send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
@@ -312,7 +303,7 @@ void short_key_immediately_plus ()
 
   if ((strcmp ("penzuiqianyi", get_first_display ()) == 0 ||\
 		  strcmp ("penzuihouyi", get_first_display ()) == 0) &&\
-		  is_same_key (KEY_PLUS)) {
+		  get_led_on_type () == TWO_ITEM_ON ) {
 	  ;
   } else
 	display_two_item (1, 0);
@@ -322,7 +313,7 @@ void short_key_immediately_set ()
 {
   fun_name = name_short_key_immediately_set;
 
-  if (is_same_key (KEY_SET))
+  if (get_led_on_type () == TWO_ITEM_ON)
     update_display ();
   else
 	clear_screen ();
@@ -348,11 +339,12 @@ void long_key_tunxi_qingjie ()
 void long_key_dachong_chongshua_kai ()//3s
 {
   rf_package_t rf_pack;
+  u8 zidongchongshua;
+
+  zidongchongshua = get_gear (0, "zidongchongshua");
 
   if (!zidongchongshua) {
     update_gear (0, "zidongchongshua", GEAR_NONE);
-    update_gear (1, "zidongchongshua", GEAR_NONE);
-    zidongchongshua = get_gear (user_id, "zidongchongshua");
 
 	fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
 	send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
@@ -371,12 +363,12 @@ void long_key_dachong_chongshua_kai ()//3s
 void long_key_dachong_chongshua_guan ()//8s
 {
   rf_package_t rf_pack;
+  u8 zidongchongshua;
 
   if (!is_processed_key_dachong_zidongchongshua_one_period) {
+    zidongchongshua = get_gear (0, "zidongchongshua");
     if (zidongchongshua) {
       update_gear (0, "zidongchongshua", GEAR_NONE);
-      update_gear (1, "zidongchongshua", GEAR_NONE);
-      zidongchongshua = get_gear (user_id, "zidongchongshua");
 
       fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
       send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
@@ -394,12 +386,12 @@ void long_key_dachong_chongshua_guan ()//8s
 void long_key_xiaochong_jiaogan ()
 {
   rf_package_t rf_pack;
+  u8 jiaogankaiguan;
 
   fun_name = name_long_key_xiaochong_jiaogan;
 
   update_gear (0, "jiaogankaiguan", GEAR_NONE);
-  update_gear (1, "jiaogankaiguan", GEAR_NONE);
-  jiaogankaiguan = get_gear (user_id, "jiaogankaiguan");
+  jiaogankaiguan = get_gear (0, "jiaogankaiguan");
 
   if (jiaogankaiguan) {
 	fix_xuexi_pack_with_user_value (&rf_pack, 0x24, 0x01);//kai
@@ -417,12 +409,12 @@ void long_key_xiaochong_jiaogan ()
 void long_key_fanquan_fangai ()
 {
   rf_package_t rf_pack;
+  u8 zidongfangai;
 
   fun_name = name_long_key_fanquan_fangai;
 
   update_gear (0, "zidongfangai", GEAR_NONE);
-  update_gear (1, "zidongfangai", GEAR_NONE);
-  zidongfangai = get_gear (user_id, "zidongfangai");
+  zidongfangai = get_gear (0, "zidongfangai");
 
   fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
   send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
@@ -439,12 +431,12 @@ void long_key_fanquan_fangai ()
 void long_key_fangai_jiedian_kai ()//8s
 {
   rf_package_t rf_pack;
+  u8 shendian;
 
   if (!is_processed_key_fangai_zhinengjiedian_one_period) {
+    shendian = get_gear (0, "shendian");
     if (!shendian) {
       update_gear (0, "shendian", GEAR_NONE);
-      update_gear (1, "shendian", GEAR_NONE);
-      shendian = get_gear (user_id, "shendian");
 
       fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
       send_rf_data_kemu (&rf_pack, sizeof(rf_pack));
@@ -462,11 +454,12 @@ void long_key_fangai_jiedian_kai ()//8s
 void long_key_fangai_jiedian_guan ()//3s
 {
   rf_package_t rf_pack;
+  u8 shendian;
+
+  shendian = get_gear (0, "shendian");
 
   if (shendian) {
     update_gear (0, "shendian", GEAR_NONE);
-    update_gear (1, "shendian", GEAR_NONE);
-    shendian = get_gear (user_id, "shendian");
 
     fix_pack_with_user_value (&rf_pack, CANSHUTIAOJIE);
     send_rf_data_kemu (&rf_pack, sizeof(rf_pack));

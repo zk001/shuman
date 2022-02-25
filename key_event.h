@@ -1,15 +1,6 @@
 #ifndef __KEY_EVENT_H__
 #define __KEY_EVENT_H__
 
-#include "common.h"
-#include "key_event.h"
-#include "display.h"
-#include "my_display.h"
-#include "app.h"
-#include "gear.h"
-#include "rf.h"
-#include "pkg.h"
-
 extern void long_key_tingzhi_peidui();
 extern void short_key_tingzhi ();
 extern void short_key_tunxi ();

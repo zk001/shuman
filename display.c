@@ -1,11 +1,8 @@
 #include "common.h"
-#include "gear.h"
-#include "adapter.h"
-#include "ssd1306_oled.h"
 #include "display.h"
+
+#include "ssd1306_oled.h"
 #include "font.h"
-#include "app.h"
-#include "types.h"
 
 #define UP   1
 #define DOWN 2

@@ -1,13 +1,16 @@
-#include "display.h"
+#include "common.h"
+#include "my_display.h"
+
+//general
 #include "gear.h"
-#include "adapter.h"
-#include "app.h"
 #include "ssd1306_oled.h"
+
+//vendor
+#include "adapter.h"
 #include "board.h"
-#include "key.h"
+#include "display.h"
 #include "app.h"
 #include "font.h"
-#include "my_display.h"
 
 typedef struct {
  u8 first_pos;
@@ -25,12 +28,13 @@ typedef struct {
 } shuman_display_t;
 
 bool is_led_on;
+static led_on_t led_on_type;
 
 void display_20x16 (shuman_display_t* display)
 {
   if (display) {
 	is_led_on = true;
-
+	led_on_type = NORMAL_LED_ON;
 	clear_screen ();
 
 	if (display->first_pos && display->first)
@@ -57,6 +61,7 @@ static void display_32x32 (shuman_display_t* display)
 {
   if (display) {
 	is_led_on = true;
+	led_on_type = NORMAL_LED_ON;
 
     clear_screen ();
 
@@ -122,6 +127,22 @@ void common_key_display (u8 key)
   display.second = (u8*)second;
   display.third  = NULL;
   display.fourth = NULL;
+
+  display_32x32 (&display);
+}
+
+void qidong_display ()
+{
+  shuman_display_t display;
+
+  display.first_pos  = 96;
+  display.second_pos = 48;
+  display.third_pos  = 1;
+  display.fourth_pos = 0;
+
+  display.first  = (u8*)qi_32x32;
+  display.second = (u8*)dong_32x32;
+  display.third  = (u8*)zhong_32x32;
 
   display_32x32 (&display);
 }
@@ -225,8 +246,8 @@ void long_xiaochong_display_kai ()
   display.third_pos  = 32;
   display.fourth_pos = 1;
 
-  display.first  = (u8*)jiao_32x32;
-  display.second = (u8*)gan_32x32;
+  display.first  = (u8*)shou_32x32;
+  display.second = (u8*)hui_32x32;
   display.third  = (u8*)kai_32x32;
   display.fourth = (u8*)qi_32x32;
   display.fifth  = (u8*)NULL;
@@ -244,8 +265,8 @@ void long_xiaochong_display_guan ()
   display.third_pos  = 32;
   display.fourth_pos = 1;
 
-  display.first  = (u8*)jiao_32x32;
-  display.second = (u8*)gan_32x32;
+  display.first  = (u8*)shou_32x32;
+  display.second = (u8*)hui_32x32;
   display.third  = (u8*)guan_32x32;
   display.fourth = (u8*)bi_32x32;
   display.fifth  = (u8*)NULL;
@@ -345,8 +366,6 @@ void display_two_item (bool is_cur_clr, bool is_next_clr)
   u32* display_item  = NULL;
   display_t display_handler;
 
-  is_led_on = true;
-
   for (u8 i = 0; i < 2; i++) {
     if (i == 0) {
       name = get_first_display ();
@@ -365,8 +384,10 @@ void display_two_item (bool is_cur_clr, bool is_next_clr)
     if (strcmp ("penzuiqianyi", name) == 0 ||\
 		  strcmp ("penzuihouyi", name) == 0)
 	  gear = get_gear (user_id, "penzuiweizhi");
+    else if (strcmp ("shuiya", name) == 0)
+      gear = get_gear (user_id, "shuiya");
     else
-	  gear = get_gear (user_id, name);
+	  gear = get_gear (0, name);
 
     if (strcmp ("fengwen", name) == 0) {
 	  if (gear == 2)
@@ -376,10 +397,17 @@ void display_two_item (bool is_cur_clr, bool is_next_clr)
     }
 
     if (display_item) {
+      is_led_on = true;
+      led_on_type = TWO_ITEM_ON;
       if (i == 0 )
 	      display_kuang ();
 	  display (&display_handler, name, (u8*)display_item[0],\
 			(u8*)display_item[1], (u8*)display_item[2], (u8*)display_item[3], gear);
     }
   }
+}
+
+led_on_t get_led_on_type ()
+{
+  return led_on_type;
 }

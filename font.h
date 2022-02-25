@@ -10,7 +10,9 @@
 //停止
 //成功
 //嘴清洁
-//脚感开启关闭
+//开启关闭
+//挥手
+//动中
 extern const u8 zheng_32x32[];
 extern const u8 zai_32x32[];
 extern const u8 pei_32x32[];
@@ -36,13 +38,14 @@ extern const u8 gong_32x32[];
 extern const u8 zui_32x32[];
 extern const u8 qing_32x32[];
 extern const u8 jie_32x32[];
-extern const u8 jiao_32x32[];
-extern const u8 gan_32x32[];
 extern const u8 kai_32x32[];
 extern const u8 qi_32x32[];
 extern const u8 guan_32x32[];
 extern const u8 bi_32x32[];
-
+extern const u8 hui_32x32[];
+extern const u8 shou_32x32[];
+extern const u8 dong_32x32[];
+extern const u8 zhong_32x32[];
 //------------------------------------------16x16------------------------------------//
 
 //喷嘴

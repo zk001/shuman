@@ -1,24 +1,14 @@
-#include "../../drivers.h"
-#include "../../genfsk_ll/genfsk_ll.h"
-#include "key.h"
+#include "common.h"
 #include "app.h"
-#include "led.h"
-#include "key.h"
-#include "board.h"
+
+//general
 #include "mac_id.h"
-#include "rf.h"
 #include "n_timer.h"
-#include "main.h"
-#include "power_saving.h"
-#include "ssd1306_oled.h"
-#include "wakeup.h"
 #include "gear.h"
-#include "adapter.h"
-#include "display.h"
-#include "font.h"
-#include "my_display.h"
+
+//vendor
 #include "key_event.h"
-#include "pkg.h"
+#include "my_display.h"
 
 #define PENZUIWEIZHI_MIN 1
 #define PENZUIWEIZHI_MAX 5
@@ -39,16 +29,16 @@
 #define YEDENG_MAX       1
 
 #define DEFAULT_SHUIWEN         3
-#define DEFAULT_ZUOWEN          2
+#define DEFAULT_ZUOWEN          3
 #define DEFAULT_FENGWEN         2
-#define DEFAULT_PENZUI_WEIZHI   5
+#define DEFAULT_PENZUI_WEIZHI   3
 #define DEFAULT_SHUIYA          3
 
 #define DEFAULT_ZIDONGFANGGAI   1
 #define DEFAULT_SHOUSHIKAIGUAN  0
 #define DEFAULT_ZIDONGCHONGSHUA 1
 #define DEFAULT_GUANGANG        0
-#define DEFAULT_SHENDIAN        1
+#define DEFAULT_SHENDIAN        0
 #define DEFAULT_YEDENG          1
 
 #define MAX_USER 2
@@ -59,19 +49,8 @@ _attribute_data_retention_ u32 new_id;
 _attribute_data_retention_ u8 user_id = 0;
 _attribute_data_retention_ gear_t user_value[2][MAX_GEAR_ITEM];
 
-_attribute_data_retention_ u8 shuiwen;
-_attribute_data_retention_ u8 zidongfangai;
-_attribute_data_retention_ u8 shoushikaiguan;
-_attribute_data_retention_ u8 zidongchongshua;
-_attribute_data_retention_ u8 guangang;
-_attribute_data_retention_ u8 shendian;
 _attribute_data_retention_ u8 penzuiweizhi;
-_attribute_data_retention_ u8 zuowen;
-_attribute_data_retention_ u8 yedeng;
 _attribute_data_retention_ u8 shuiya;
-_attribute_data_retention_ u8 fengwen;
-_attribute_data_retention_ u8 jiaogankaiguan;
-
 
 static void set_default_user_value ()
 {
@@ -164,26 +143,18 @@ static void set_default_user_value ()
 
 void update_app_gear ()
 {
-  shuiwen         = get_gear (user_id, "shuiwen");
-  zidongfangai    = get_gear (user_id, "zidongfangai");
-  shoushikaiguan  = get_gear (user_id, "shoushikaiguan");
-  zidongchongshua = get_gear (user_id, "zidongchongshua");
-  guangang        = get_gear (user_id, "guangang");
-  shendian        = get_gear (user_id, "shendian");
-  penzuiweizhi    = get_gear (user_id, "penzuiweizhi");
-  zuowen          = get_gear (user_id, "zuowen");
-  yedeng          = get_gear (user_id, "yedeng");
-  shuiya          = get_gear (user_id, "shuiya");
-  fengwen         = get_gear (user_id, "fengwen");
-  jiaogankaiguan  = get_gear (user_id, "jiaogankaiguan");
+  penzuiweizhi = get_gear (user_id, "penzuiweizhi");
+  shuiya       = get_gear (user_id, "shuiya");
 }
 
-void app_init()
+void app_init ()
 {
   set_default_user_value ();
   read_id (&uid, 4);
-  register_gear (&user_value[0][0], MAX_USER, MAX_GEAR_ITEM);
+  register_gear (0, NULL, &user_value[0][0], MAX_USER, MAX_GEAR_ITEM);
   update_app_gear ();
+
+  qidong_display ();
 
   register_key_event (KEY_TINGZHI,  0, MS2TICK(3000), 0, LONG_KEY, long_key_tingzhi_peidui);
   register_key_event (KEY_TINGZHI,  0, MS2TICK(2000), 0, SHORT_KEY, short_key_tingzhi);
